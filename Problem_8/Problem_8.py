@@ -24,6 +24,7 @@
 
 # Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. What is the value of this product?
 from functools import reduce
+import numpy as np
 text = "73167176531330624919225119674426574742355349194934" \
 "96983520312774506326239578318016984801869478851843" \
 "85861560789112949495459501737958331952853208805511" \
@@ -52,29 +53,24 @@ def Convert(string):
 
 numbers = text
 
-endIndex = 11
+endIndex = 12
 my_dict = {}
 for idx, val in enumerate(numbers):
     startIndex = idx
+    
     endIndex += 1
+    #print("Start Index: {} and End Index: {}".format(startIndex, endIndex))
     lst = numbers[startIndex:endIndex]
     #print("Start Index: {} - End Index: {} - Numbes: {} - Convert To String {}".format(startIndex, endIndex,lst, str(lst)))
     numbersToMultiple = []
     for a in lst:
         b = int(a)
-        if b != 0:
-           numbersToMultiple.append(int(a))
-    if len(numbersToMultiple) != 0:
-       val = reduce((lambda x, y: x * y), numbersToMultiple)
-       my_dict[str(lst)] = val   
+        #if b != 0:
+        numbersToMultiple.append(b)
+    val = reduce((lambda x, y: x * y), numbersToMultiple)
+    my_dict[str(lst)] = val   
 
-#print(my_dict)
-#for k, v in my_dict.items():
-    #print("Key: {} - Value: {}".format(k,v))
-#print("Sorted List")
+
 sortedList = {k: v for k, v in sorted(my_dict.items(), key=lambda item: item[1])}
-for k, v in sortedList.items():
-    print("Key: {} - Value: {}".format(k,v))
-#list(sortedList.items())[-1]
 finalResults = list(sortedList.items())
-print(finalResults[-1]) 
+print("Answer is: {}".format(finalResults[-1])) 
